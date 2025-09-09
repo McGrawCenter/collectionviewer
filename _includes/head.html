@@ -1,0 +1,50 @@
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{site.title}}</title>
+  <meta name="description" content="A IIIF collection viewer for Art History">
+  <meta name="author" content="Ben Johnston">
+ 
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/mini.css">
+  <script src="https://unpkg.com/mirador@latest/dist/mirador.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="{{ site.baseurl }}/assets/js/simpleparser.js"></script>
+
+     <style>
+       body { overflow:hidden; }
+       #viewer { position:relative; height:90vh; }
+       #gallery { display:flex; flex-wrap:wrap;justify-content: space-evenly; }
+       #gallery-window { overflow:hidden;overflow-y:auto;height:100%; }
+       #gallery-handle { text-align:center;padding:1em;background:#EEE; border:solid 5px #d2d2d2; }
+       .card { max-width:150px; }
+       .card div.section.media {
+         background: #666;
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+       }
+       .card div.section.label {  }
+       .card div.section.label p { height:120px;overflow:hidden;margin:0;font-size:0.8em; }
+       .icon { height:32px; }
+       
+       #panel.shown {
+          bottom: 0px;
+          transition: bottom 1s,box-shadow 1s;
+       }
+       #panel.shown img.icon {rotate: 180deg; transition:rotate 1s;}
+       #panel img.icon {rotate: 0deg; transition:rotate 1s;}
+       #panel {
+         position: absolute;
+         background: white;
+         right: 9px;
+         left:9px;
+         bottom: -615px;
+         height:700px;
+         z-index: 99999;
+         transition: bottom 1s;
+       } 
+           
+      </style>  
+
+</head>

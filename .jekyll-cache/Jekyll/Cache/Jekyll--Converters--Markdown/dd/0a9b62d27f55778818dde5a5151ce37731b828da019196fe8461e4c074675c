@@ -1,0 +1,160 @@
+I"Æ<aside id="panel" class="">
+     <div id="gallery-handle"><a href="#" class="open"><img src="/assets/images/arrow-up-circle-blue.svg" class="icon" /></a></div>
+    <div id="gallery-window">
+     <div id="gallery"></div>
+    </div>
+   </aside>
+
+<div id="viewer"></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  &lt;script&gt;
+  var config = {
+    id: 'viewer',
+    windows: [
+    { manifestId: "https://etcpanel.princeton.edu/IIIF/manifests/instructions/manifest2.json" }
+    ],
+    catalog: [
+    { manifestId: "https://media.getty.edu/iiif/manifest/02f4a5af-4bbe-4b4b-a6b6-0be316606b85" }
+    ]
+  }
+  var mirador = Mirador.viewer(config);
+  //console.log(Mirador);
+  //console.log(mirador);
+  
+  
+  
+    /*************************
+     * get the url vars
+     ***********************************/
+
+    function getURLValues() {
+
+        var search = window.location.search.replace(/^\?/, '').replace(/\+/g, ' ');
+        var values = {};
+
+        if (search.length) {
+            var part, parts = search.split('&amp;');
+
+            for (var i = 0, iLen = parts.length; i &lt; iLen; i++) {
+                part = parts[i].split('=');
+                values[part[0]] = window.decodeURIComponent(part[1]);
+            }
+        }
+        return values;
+    }
+    
+    /**************************
+     * if there is a manifest url var, load it
+     *************************************************/
+    var vars = getURLValues();
+    if (typeof vars.manifest !== 'undefined') {
+        var url = vars.manifest;
+        jQuery("#url").val(url);
+        //current.manifest = url;
+        
+        load(url);
+    }
+    
+    
+    function load(url) {
+
+          fetch(url)
+          .then(response =&gt; response.json())
+          .then((data) =&gt; {
+
+	     if(data.type &amp;&amp; data.type == 'Collection') { 
+                data.items.forEach((item,) =&gt; {
+                  addCard(item.id);
+                });
+	     }
+	     else if(data['@type'] &amp;&amp; data['@type'] == 'sc:Collection') {
+	  	console.log("Version 2");
+                data.manifests.forEach((item) =&gt; {
+                  addCard(item['@id']);
+                });		  	
+	     }
+             else {
+               console.log('this is not a collection');
+             }
+          });
+
+	  
+          
+          function addCard(manifest) {
+  		     var x = new SimpleParser();
+	     x.convert(manifest).then((output)=&gt;{
+	          var label = output.label;
+	          var item = output.items[0];
+	          jQuery("#gallery").append(`&lt;a href="#" class="card" data-manifest="`+output.id+`"&gt;
+</code></pre></div></div>
+<div class="section media"><img src="`+item.serviceurl+`/full/300,/0/default.jpg" /></div>
+<div class="section label">
+   <p>` + label + `</p>
+  </div>
+<p>&lt;/a&gt;`);	     <br />
+		     });</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>          }
+
+    }	    	          
+  
+  
+  
+  jQuery(document).on("click",'.card',function(e){
+    var manifest = jQuery(this).attr('data-manifest');
+    addManifestToMirador(manifest);  
+    e.preventDefault();
+  });
+  
+  
+  
+  
+  function addManifestToMirador(manifest) {
+    //var action = Mirador.updateWorkspace(config);
+    //mirador.store.dispatch(action);  
+
+    //config.windows.push({ manifestId: "https://data.artmuseum.princeton.edu/iiif/objects/36161" });
+    //var action = Mirador.importConfig(config);
+    //mirador.store.dispatch(action);
+    
+    var action = Mirador.addResource(manifest);
+    mirador.store.dispatch(action);
+    
+    var action = Mirador.addWindow({manifestId: manifest});
+    mirador.store.dispatch(action); 
+  }   
+  
+  
+  
+  
+     
+  
+  function openAside() {
+    jQuery('#panel').addClass("shown");
+  }
+  function closeAside() {
+    jQuery('#panel').removeClass("shown");
+  }
+  
+  jQuery(".open").click(function(e){
+    var g = jQuery('#panel');
+    if(g.hasClass("shown")) {
+      closeAside();
+    }
+    else {
+      openAside();
+    }
+    e.preventDefault();
+  });
+</code></pre></div></div>
+
+<p>/*
+ getWindows
+ getWorkspace</p>
+
+<p>*/</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  &lt;/script&gt;
+</code></pre></div></div>
+
+:ET
