@@ -4,6 +4,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Collection Viewer</title>
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
   <meta name="description" content="A IIIF collection viewer for Art History">
   <meta name="author" content="Ben Johnston">
  
@@ -15,7 +16,7 @@
      <style>
        body { overflow:hidden; }
        #viewer { position:relative; height:90vh; }
-       #gallery { display:flex; flex-wrap:wrap;justify-content: space-evenly; }
+       #gallery { display:flex; flex-wrap:wrap;justify-content: space-evenly;margin-top:1em; }
        #gallery-window { overflow:hidden;overflow-y:auto;height:100%; }
        #gallery-handle { text-align:center;padding:1em;background:#EEE; border:solid 5px #d2d2d2; }
        .card { max-width:150px; }
@@ -50,15 +51,7 @@
 
 </head>
 <body>
-<section id='header'>
-   
-
-</section>
-
-<main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        <section id="content" style="margin-top:3%;">
-  <div class="container-fluid">
+        <div class="container-fluid">
 
   <aside id="panel" class="">
    <div id="gallery-handle"><a href="#" class="open"><img src="/assets/images/arrow-up-circle-blue.svg" class="icon" /></a></div>
@@ -73,31 +66,9 @@
 
 
   
-  </div> <!-- /.container -->
-</section>   
+</div> <!-- /.container -->
       
 
 
-      </div>
-    </main>
-<section id='footersection'>
- 
- 
- 
-  <div class="container" id='footer'>
-  
-    <div class="row">
-      <div class="col-sm-6" style='valign:top;font-size: 0.8em;'>
-        &copy; 2024 Trustees of <a href="https://www.princeton.edu">Princeton University</a>
-
-      <div class="col-sm-6" style="text-align:right;valign:top;">
-	<a href="https://www.princeton.edu" aria-label="link to the Princeton University home page"><img title="Princeton University logo" src="/assets/images/Princeton-logo-transparent.png" height="60"/></a><br />
-      </div>
-    </div>
-    
-
-
-</section>
-</body>
-
+  </body>
 </html>
